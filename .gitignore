@@ -44,5 +44,24 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Firebase configuration files
+firebase.json
+lib/firebase_options*.dart
+ios/Runner/GoogleService-Info.plist
+ios/flavors/*/GoogleService-Info.plist
+ios/firebase_app_id_file.json
+android/app/google-services.json
+android/app/src/*/google-services.json
+flutterfire-config.sh
+
+# Firebase (other)
+.firebase/
+
+# Environments
+*.env.dev
+*.env.stg
+*.env.prod
+
 # FVM Version Cache
 .fvm/
+.fvmrc
