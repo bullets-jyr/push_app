@@ -38,6 +38,7 @@ dependencies:
   bloc: ^9.0.0
   flutter_bloc: ^9.1.1
   go_router: ^16.2.1
+  firebase_messaging: ^16.0.1
 
 dev_dependencies:
   flutter_test:
