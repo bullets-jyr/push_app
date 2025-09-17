@@ -15,6 +15,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     on<NotificationsStatusChanged>(_notificationsStatusChanged);
 
     _initialStatusCheck();
+    _onForegroundMessage();
   }
 
   static Future<void> initializeFCM() async {
@@ -40,6 +41,18 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     if (state.status != AuthorizationStatus.authorized) return;
     final token = await messaging.getToken();
     print('FCM Token: $token');
+  }
+
+  void _handleRemoteMessage(RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification == null) return;
+    print('Message also contained a notification: ${message.notification}');
+  }
+
+  void _onForegroundMessage() {
+    FirebaseMessaging.onMessage.listen(_handleRemoteMessage);
   }
 
   // https://firebase.flutter.dev/docs/messaging/permissions
