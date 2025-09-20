@@ -41,11 +41,11 @@ class _HomeView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final notification = notifications[index];
         return ListTile(
-          // title: Text(notification.title),
-          // subtitle: Text(notification.body),
-          // leading: notification.imageUrl != null
-          //     ? Image.network(notification.imageUrl!)
-          //     : null,
+          title: Text(notification.title),
+          subtitle: Text(notification.body),
+          leading: notification.imageUrl != null
+              ? Image.network(notification.imageUrl!)
+              : null,
           // onTap: () {
           //   context.push('/push-details/${notification.messageId}');
           // },

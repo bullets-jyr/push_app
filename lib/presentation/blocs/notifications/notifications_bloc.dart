@@ -24,7 +24,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   NotificationsBloc() : super(NotificationsState()) {
     on<NotificationsStatusChanged>(_notificationsStatusChanged);
-    // on<NotificationReceived>(_onPushMessageReceived);
+    on<NotificationReceived>(_onPushMessageReceived);
 
     _initialStatusCheck();
     _onForegroundMessage();
@@ -44,16 +44,16 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     _getFCMToken();
   }
 
-  // void _onPushMessageReceived(
-  //   NotificationReceived event,
-  //   Emitter<NotificationsState> emit,
-  // ) {
-  //   emit(
-  //     state.copyWith(
-  //       notifications: [event.pushMessage, ...state.notifications],
-  //     ),
-  //   );
-  // }
+  void _onPushMessageReceived(
+    NotificationReceived event,
+    Emitter<NotificationsState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        notifications: [event.pushMessage, ...state.notifications],
+      ),
+    );
+  }
 
   void _initialStatusCheck() async {
     final settings = await messaging.getNotificationSettings();
@@ -81,8 +81,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           : message.notification!.apple?.imageUrl,
     );
 
-    print(notification);
-    // add(NotificationReceived(notification));
+    // print(notification);
+    add(NotificationReceived(notification));
   }
 
   void _onForegroundMessage() {
