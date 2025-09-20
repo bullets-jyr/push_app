@@ -15,16 +15,16 @@ class LocalNotifications {
     const initializationSettingsAndroid = AndroidInitializationSettings(
       'app_icon',
     );
-    //TODO ios configuration
+    //TODO:: ios configuration
 
     const initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
-      // TODO ios configuration settings
+      // TODO:: ios configuration settings
     );
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+      // onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
   }
 

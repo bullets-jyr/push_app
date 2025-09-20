@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:push_app/config/local_notification/local_notifications.dart';
 import 'package:push_app/domain/entities/push_message.dart';
 import 'package:push_app/firebase_options.dart';
 
@@ -21,9 +22,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   // int pushNumberId = 0;
 
   final Future<void> Function()? requestLocalNotificationPermissions;
+
   // final void Function({
   //   required int id,
   //   String? title,
@@ -127,10 +130,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     );
 
     // Solicitar permiso a las local notifications
-    if (requestLocalNotificationPermissions != null) {
-      await requestLocalNotificationPermissions!();
-      // await LocalNotifications.requestPermissionLocalNotifications();
-    }
+    await LocalNotifications.requestPermissionLocalNotifications();
+    // if (requestLocalNotificationPermissions != null) {
+    //   await requestLocalNotificationPermissions!();
+    // }
 
     add(NotificationsStatusChanged(settings.authorizationStatus));
   }
