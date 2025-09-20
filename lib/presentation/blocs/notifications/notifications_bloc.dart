@@ -26,7 +26,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     on<NotificationsStatusChanged>(_notificationsStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
 
+    // Verificar estado de las notificaciones
     _initialStatusCheck();
+
+    // Listener para notificaciones en Foreground
     _onForegroundMessage();
   }
 
@@ -66,7 +69,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     print('FCM Token: $token');
   }
 
-  void _handleRemoteMessage(RemoteMessage message) {
+  void handleRemoteMessage(RemoteMessage message) {
     if (message.notification == null) return;
 
     final notification = PushMessage(
@@ -86,7 +89,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   void _onForegroundMessage() {
-    FirebaseMessaging.onMessage.listen(_handleRemoteMessage);
+    FirebaseMessaging.onMessage.listen(handleRemoteMessage);
   }
 
   // https://firebase.flutter.dev/docs/messaging/permissions
