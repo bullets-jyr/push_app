@@ -22,11 +22,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  int pushNumberId = 0;
 
-  // int pushNumberId = 0;
-
-  final Future<void> Function()? requestLocalNotificationPermissions;
-
+  // final Future<void> Function()? requestLocalNotificationPermissions;
   // final void Function({
   //   required int id,
   //   String? title,
@@ -35,10 +33,11 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   // })?
   // showLocalNotification;
 
-  NotificationsBloc({
-    this.requestLocalNotificationPermissions,
-    // this.showLocalNotification,
-  }) : super(NotificationsState()) {
+  NotificationsBloc(// {
+      //   this.requestLocalNotificationPermissions,
+      //   this.showLocalNotification,
+      // }
+  ) : super(NotificationsState()) {
     on<NotificationsStatusChanged>(_notificationsStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
 
@@ -100,6 +99,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           : message.notification!.apple?.imageUrl,
     );
 
+    LocalNotifications.showLocalNotification(
+      id: ++pushNumberId,
+      body: notification.body,
+      data: notification.data.toString(),
+      title: notification.title,
+    );
     // if (showLocalNotification != null) {
     //   showLocalNotification!(
     //     id: ++pushNumberId,
