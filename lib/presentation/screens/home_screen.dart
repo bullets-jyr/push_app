@@ -9,7 +9,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text('Permisos'),
         title: context.select(
           (NotificationsBloc bloc) => Text('${bloc.state.status}'),
         ),
@@ -22,20 +21,35 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: _HomeView(),
+      body: const _HomeView(),
     );
   }
 }
 
 class _HomeView extends StatelessWidget {
-  const _HomeView({super.key});
+  const _HomeView();
 
   @override
   Widget build(BuildContext context) {
+    final notifications = context
+        .watch<NotificationsBloc>()
+        .state
+        .notifications;
+
     return ListView.builder(
-      itemCount: 0,
-      itemBuilder: (context, index) {
-        return ListTile();
+      itemCount: notifications.length,
+      itemBuilder: (BuildContext context, int index) {
+        final notification = notifications[index];
+        return ListTile(
+          // title: Text(notification.title),
+          // subtitle: Text(notification.body),
+          // leading: notification.imageUrl != null
+          //     ? Image.network(notification.imageUrl!)
+          //     : null,
+          // onTap: () {
+          //   context.push('/push-details/${notification.messageId}');
+          // },
+        );
       },
     );
   }
