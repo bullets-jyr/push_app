@@ -24,7 +24,7 @@ class LocalNotifications {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      // onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
   }
 
@@ -60,6 +60,8 @@ class LocalNotifications {
   }
 
   static void onDidReceiveNotificationResponse(NotificationResponse response) {
+    // print('response: $response');
+    // print('response.payload: ${response.payload}');
     appRouter.push('/push-details/${response.payload}');
   }
 }
