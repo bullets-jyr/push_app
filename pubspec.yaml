@@ -41,6 +41,8 @@ dependencies:
   firebase_core: ^4.1.0
   firebase_messaging: ^16.0.1
   permission_handler: ^12.0.1
+  # https://pub.dev/packages/flutter_local_notifications/versions/13.0.0
+  # https://pub.dev/packages/flutter_local_notifications
   flutter_local_notifications: ^19.4.2
 
 dev_dependencies:
